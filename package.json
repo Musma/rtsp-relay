@@ -1,5 +1,5 @@
 {
-  "name": "rtsp-relay",
+  "name": "@musma/rtsp-relay",
   "version": "1.6.1",
   "author": "Kyle Hensel",
   "license": "MIT",
@@ -9,21 +9,14 @@
   "engines": {
     "node": ">=10.0.0"
   },
-  "repository": "https://github.com/k-yle/rtsp-relay",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Musma/rtsp-relay.git"
+  },
   "files": [
     "browser",
     "index.d.ts",
     "index.js"
-  ],
-  "keywords": [
-    "rtsp",
-    "rtsp-stream",
-    "stream",
-    "websocket",
-    "ws",
-    "express",
-    "ffmpeg",
-    "jsmpeg"
   ],
   "scripts": {
     "pretest": "chmod u+x test/rtsp-simple-server",
@@ -67,5 +60,8 @@
       "jest-image-snapshot/src/outdated-snapshot-reporter.js"
     ],
     "collectCoverage": true
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   }
 }

@@ -4,6 +4,23 @@ const { spawn } = require('child_process');
 const ews = require('express-ws');
 const ps = require('ps-node');
 const { version } = require('./package.json');
+const path = require('path');
+const fs = require('fs');
+
+const copy = async (source, target) => {
+  fs.mkdirSync(process.cwd() + '\\temp');
+  await (fs.createReadStream(source).pipe(fs.createWriteStream(target)));
+}
+
+let target;
+//@ts-ignore
+if (process.pkg) {
+  target = path.join(process.cwd() + '\\temp' + '\\ffmpeg');
+  copy(ffmpegPath, target).then(d => {
+    fs.chmodSync(target, 0o765);
+  }
+).catch(e => console.log(e.message));
+}
 
 /**
  * @typedef {{
@@ -39,7 +56,7 @@ class InboundStreamWrapper {
     }
 
     this.stream = spawn(
-      ffmpegPath,
+      process.pkg ? target : ffmpegPath,
       [
         ...(transport ? ['-rtsp_transport', transport] : []), // this must come before `-i [url]`, see #82
         '-i',
