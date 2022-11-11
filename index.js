@@ -76,6 +76,7 @@ class InboundStreamWrapper {
     this.stream.stderr.on('error', (e) => console.log('err:error', e));
     this.stream.stdout.on('error', (e) => console.log('out:error', e));
     this.stream.on('error', (err) => {
+      console.error(err)
       if (this.verbose) {
         console.warn(`[rtsp-relay] Internal Error: ${err.message}`);
       }
@@ -193,7 +194,8 @@ module.exports = (app, server) => {
           if (ws.readyState === ws.OPEN) ws.send(chunk);
         }
 
-        ws.on('close', () => {
+        ws.on('close', (e) => {
+          console.error(e)
           const c = Inbound[url].decrement();
           if (verbose) {
             console.log(`[rtsp-relay] WebSocket Disconnected ${c} left`);
