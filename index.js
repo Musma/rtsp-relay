@@ -76,7 +76,7 @@ class InboundStreamWrapper {
     this.stream.stderr.on('error', (e) => console.log('err:error', e));
     this.stream.stdout.on('error', (e) => console.log('out:error', e));
     this.stream.on('error', (err) => {
-      console.error(err)
+      console.error('error', err)
       if (this.verbose) {
         console.warn(`[rtsp-relay] Internal Error: ${err.message}`);
       }
